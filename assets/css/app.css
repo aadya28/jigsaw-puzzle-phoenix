@@ -4,22 +4,57 @@
 
 /* This file is for your main application CSS */
 body {
+    margin: 0;
+    padding: 0;
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
-    margin: 0; 
+    background-color: #f4f4f9;
 }
 
 h1 {
-    margin: 0 0 50px; 
+    margin: 0 0 4vh; 
     font-size: 50px; 
+    color: #333;
 }
 
-.square{
-    width: 550px; 
-    height: 550px; 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.puzzle-area {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.puzzle-box {
+    width: 550px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid black; 
+}
+
+.pieces-container {
+    margin: 0 2vw 0 2vw;
+    height: 70.2vh;
+    width: 20vw;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vw;
+    overflow-y: auto;
     
 }
