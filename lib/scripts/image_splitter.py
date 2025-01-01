@@ -42,7 +42,7 @@ def create_jigsaw_pieces(image_path, rows, cols, output_dir):
     print(f"Jigsaw pieces saved in '{output_dir}'")
 
 # Usage
-image_path = "images/original/jigsaw-img-1.jpeg"  # Replace with your image path
-output_dir = "images/puzzle-pieces/img-1-pieces"
+image_path = "priv/static/images/original/jigsaw-img-1.jpeg"  # Replace with your image path
+output_dir = "priv/static/images/puzzle-pieces/img-1-pieces"   # Update path to priv/static/images/puzzle-pieces
 rows, cols = 4, 4  # Number of rows and columns
 create_jigsaw_pieces(image_path, rows, cols, output_dir)
