@@ -42,3 +42,38 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+document.addEventListener("DOMContentLoaded", () => {
+  const leftContainer = document.getElementById("left-pieces");
+  const rightContainer = document.getElementById("right-pieces");
+
+  // Base URL for puzzle pieces
+  const basePath = "/images/puzzle-pieces/img-1-pieces/";
+  const pieces = [
+      "piece_0_0.png",
+      "piece_0_1.png",
+      "piece_0_2.png",
+      "piece_1_0.png",
+      "piece_1_1.png",
+      "piece_1_2.png",
+      "piece_2_0.png",
+      "piece_2_1.png",
+      "piece_2_2.png",
+  ];
+
+  // Shuffle pieces randomly
+  const shuffledPieces = pieces.sort(() => Math.random() - 0.5);
+
+  // Distribute pieces into left and right containers
+  shuffledPieces.forEach((piece, index) => {
+      const img = document.createElement("img");
+      img.src = basePath + piece;
+      img.alt = `Puzzle Piece ${index + 1}`;
+      img.classList.add("puzzle-piece");
+
+      if (index % 2 === 0) {
+          leftContainer.appendChild(img);
+      } else {
+          rightContainer.appendChild(img);
+      }
+  });
+});
