@@ -25,6 +25,12 @@ defmodule JigsawWeb.Endpoint do
     gzip: false,
     only: JigsawWeb.static_paths()
 
+    plug Plug.Static,
+    at: "/images",
+    from: :jigsaw,
+    gzip: false,
+    only: ~w(images)
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
