@@ -35,15 +35,14 @@ def create_jigsaw_pieces(image_path, rows, cols, output_dir):
             piece = cv2.bitwise_and(piece, irregular_shape)
 
             # Save the piece
-            base_output_dir = output_dir
             piece_filename = f"piece_{i}_{j}.png"
-            piece_path = os.path.join(base_output_dir, piece_filename)
+            piece_path = os.path.join(output_dir, piece_filename)
             cv2.imwrite(piece_path, piece)
 
     print(f"Jigsaw pieces saved in '{output_dir}'")
 
 # Usage
-image_path = "assets/images/original/jigsaw-input.jpeg"  # Replace with your image path
-output_dir = "assets/images/puzzle-pieces/image-1"
+image_path = "images/original/jigsaw-img-1.jpeg"  # Replace with your image path
+output_dir = "images/puzzle-pieces/img-1-pieces"
 rows, cols = 4, 4  # Number of rows and columns
 create_jigsaw_pieces(image_path, rows, cols, output_dir)
