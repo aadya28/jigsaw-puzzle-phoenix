@@ -15,9 +15,9 @@ channel.on("piece_dropped", payload => {
 
   if (piece && cell) {
     cell.appendChild(piece);
-    piece.setAttribute("draggable", "false");
+    piece.setAttribute("draggable", "true");
     piece.style.opacity = "1";
-    cell.style.border = "none"; // Reset the border when the piece is placed correctly
+    cell.style.border = "none"; // Reset the border when the piece is placed
   }
 });
 
@@ -29,6 +29,29 @@ channel.join()
   .receive("error", resp => { 
     console.log("Unable to join", resp); 
   });
+
+// Function to check puzzle correctness
+function checkPuzzleCorrectness() {
+  const cells = document.querySelectorAll(".grid-cell");
+  let correct = true;
+
+  cells.forEach(cell => {
+    const piece = cell.querySelector(".puzzle_piece");
+    const cellIndex = cell.getAttribute("data-index");
+
+    if (!piece || piece.id.replace("piece_", "") !== cellIndex) {
+      correct = false;
+    }
+  });
+
+  return correct;
+}
+
+// Function to check if the grid is full
+function isGridFull() {
+  const cells = document.querySelectorAll(".grid-cell");
+  return Array.from(cells).every(cell => cell.querySelector(".puzzle_piece"));
+}
 
 // Handle drag and drop logic
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,18 +98,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const piece = document.getElementById(pieceId);
       const cellIndex = cell.getAttribute("data-index");
 
-      // Check if the dropped piece's id matches the cell's data-index
-      if (pieceId.replace('piece_', '') === cellIndex) {
+      if (piece && !cell.querySelector(".puzzle_piece")) {
         // Place the piece inside the grid cell
         cell.appendChild(piece);
-        piece.setAttribute("draggable", "false"); // Disable further dragging
+        piece.setAttribute("draggable", "true"); // Allow re-dragging
         piece.style.opacity = "1";
         cell.style.border = "none";
 
+        // Check if the grid is full
+        if (isGridFull()) {
+          setTimeout(() => {
+            const isCorrect = checkPuzzleCorrectness();
+            if (isCorrect) {
+              alert("You solved this, now go solve world peace!");
+            } else {
+              alert("Don't stress, some puzzles just require brains, not vibes :)");
+            }
+          }, 1000); // 1-second delay
+        }
+
         // Send the piece drop event over the channel
         channel.push("piece_dropped", { pieceId, cellIndex });
-      } else {
-        cell.style.border = "none"; // Reset border when not matching
       }
     });
   });
