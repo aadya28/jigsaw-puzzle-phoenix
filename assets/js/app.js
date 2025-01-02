@@ -43,13 +43,6 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-document.addEventListener("DOMContentLoaded", () => {
-  const pieces = document.querySelectorAll(".pieces-container img");
-  const gridCells = document.querySelectorAll(".grid-cell");
-
-  
-});
-
 // For automation, not in  use currently
 // document.addEventListener("DOMContentLoaded", () => {
 //   const leftContainer = document.getElementById("left-pieces");

@@ -31,16 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
     gridCells.forEach(cell => {
         cell.addEventListener("dragover", (e) => {
             e.preventDefault(); // Allow drop
-            cell.style.border = "2px solid #000"; // Change border style when hovering
+            cell.style.border = "1px solid #000"; // Change border style when hovering
         });
 
         // Handle drag leave
         cell.addEventListener("dragleave", () => {
-            cell.style.border = "1px solid #000"; // Reset border style when leaving
+            cell.style.border = "none"; // Reset border style when leaving
         });
 
         // Handle drop
-        
         cell.addEventListener("drop", (e) => {
             e.preventDefault();
             const pieceId = e.dataTransfer.getData("pieceId");
@@ -53,8 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cell.appendChild(piece);
                 piece.setAttribute("draggable", "false"); // Disable further dragging
                 piece.style.opacity = "1";
-            } else {
-                cell.style.border = "1px solid #000";
+                cell.style.border = "none";
             }
         });
     });
