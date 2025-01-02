@@ -84,3 +84,16 @@ h1 {
     padding: 1vw;
     overflow-y: auto;
 }
+
+.pieces-container img {
+    width: 100px;
+    height: 100px;
+}
+
+.grid-cell {
+    border: 2px solid #000;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
