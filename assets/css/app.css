@@ -15,6 +15,28 @@ body {
     background-color: #f4f4f9;
 }
 
+.solved-image {
+    width: 10%; /* Adjust the size as needed */
+    height: auto; /* Maintain the aspect ratio */
+    opacity: 1; /* Fully visible */
+    position: fixed; /* Fixed position to stay in the top-right corner */
+    top: 15px; /* Adjust the distance from the top */
+    right: 15px; /* Adjust the distance from the right */
+    z-index: 1000; /* Ensure it appears above other elements */
+    border: 1px solid #000; /* Optional: Add a border */
+    animation: fadeOut 10s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1; /* Fully visible at the start */
+    }
+    100% {
+        opacity: 0; /* Fully transparent at the end */
+    }
+}
+
+
 h1 {
     margin: 0 0 4vh;
     font-size: 50px;
@@ -50,7 +72,7 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.15;
+    opacity: 0;
     position: absolute;
 }
 
