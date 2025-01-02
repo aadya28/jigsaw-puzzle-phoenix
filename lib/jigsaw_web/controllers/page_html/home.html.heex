@@ -11,42 +11,23 @@
     <div class="container">
         <h1>Jigsaw Puzzle</h1>
         <div class="puzzle-area">
-            <div class="pieces-container" id="left-pieces">
-                <!-- Puzzle pieces -->
-                <img src="images/puzzle-pieces/img-1-pieces/piece_0_0-1318145177a8eac89051543a0983e6c9.png" id="piece_0_0" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_0_1-e25a53e6293eebf3ca775de7476afa6a.png" id="piece_0_1" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_0_2-6dae7a5098b7446295a0d4434461750a.png" id="piece_0_2" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_1_0-0a36a2b59e7a9c9266b06424e660b67b.png" id="piece_1_0" class="puzzle_piece" draggable="true">
-            </div>
+            <div class="pieces-container" id="left-pieces"></div>
 
             <div class="puzzle-box">
                 <img src="images/original/newimg.png" alt="Jigsaw Puzzle Image">
-                <div class="grid-line">
-                    <!-- Vertical Lines -->
-                    <div class="grid-cell" data-index="0_0"></div>
-                    <div class="grid-cell" data-index="0_1"></div>
-                    <div class="grid-cell" data-index="0_2"></div>
-                    <div class="grid-cell" data-index="1_0"></div>
-                    <div class="grid-cell" data-index="1_1"></div>
-                    <div class="grid-cell" data-index="1_2"></div>
-                    <div class="grid-cell" data-index="2_0"></div>
-                    <div class="grid-cell" data-index="2_1"></div>
-                    <div class="grid-cell" data-index="2_2"></div>
-                </div>
+                <div class="grid-line"></div>
             </div>
 
-             <div class="pieces-container" id="right-pieces">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_1_1-4cbf5e9118f42cc74256930804fe72f1.png" id="piece_1_1" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_1_2-2dec423492b5b061fb0f75feb212cacf.png" id="piece_1_2" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_2_0-a6684ca9504dacea8205bf4b56fb7de1.png" id="piece_2_0" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_2_1-341b10a378567fc2901e5c736d0c3672.png" id="piece_2_1" class="puzzle_piece" draggable="true">
-                <img src="images/puzzle-pieces/img-1-pieces/piece_2_2-368e468c26ff8cc776f727dbd057b970.png" id="piece_2_2" class="puzzle_piece" draggable="true">
-            </div>
+            <div class="pieces-container" id="right-pieces"></div>
             <script src="js/app.js"></script>
         </div>
     </div>
 
-    <!--<script src="<%= Phoenix.VerifiedRoutes.static_path(@conn, "/js/app.js") %>"></script>-->
+    <script>
+        // Pass the static path for puzzle pieces to the JavaScript
+        window.puzzlePiecesBasePath = "/images/puzzle-pieces/img-1-pieces/";
+        window.puzzlePiecesData = <%= raw(Jason.encode!(@puzzle_pieces)) %>;
+    </script>
 </body>
 
 </html>
