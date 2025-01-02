@@ -2,8 +2,7 @@ defmodule JigsawWeb.UserSocket do
   use Phoenix.Socket
 
   # Define channels
-  channel "jigsaw:lobby", JigsawWeb.JigsawChannel
-
+  channel "puzzle:lobby", JigsawWeb.JigsawChannel
   # Optional connection handling
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
