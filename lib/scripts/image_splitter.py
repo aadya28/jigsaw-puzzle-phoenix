@@ -28,21 +28,19 @@ def create_jigsaw_pieces(image_path, rows, cols, output_dir):
             piece = image[y1:y2, x1:x2]
 
             # Optionally, add irregular edges (simulate jigsaw shapes)
-            mask = np.zeros_like(piece, dtype=np.uint8)
-            irregular_shape = cv2.rectangle(mask, (randint(0, 10), randint(0, 10)),
-                                            (piece_width - randint(0, 10), piece_height - randint(0, 10)),
-                                            (255, 255, 255), -1)
-            piece = cv2.bitwise_and(piece, irregular_shape)
+            # mask = np.ones_like(piece, dtype=np.uint8) * 255  # Start with a white mask
+            
+            # # Apply the mask
+            # piece = cv2.bitwise_and(piece, mask)
 
             # Save the piece
-            piece_filename = f"piece_{i}_{j}.png"
-            piece_path = os.path.join(output_dir, piece_filename)
+            piece_path = os.path.join(output_dir, f"piece_{i}_{j}.png")
             cv2.imwrite(piece_path, piece)
 
     print(f"Jigsaw pieces saved in '{output_dir}'")
 
 # Usage
 image_path = "priv/static/images/original/jigsaw-img-1.jpeg"  # Replace with your image path
-output_dir = "priv/static/images/puzzle-pieces/img-1-pieces"   # Update path to priv/static/images/puzzle-pieces
-rows, cols = 4, 4  # Number of rows and columns
+output_dir = "priv/static/images/puzzle-pieces/img-1-pieces"
+rows, cols = 3, 3  # Number of rows and columns
 create_jigsaw_pieces(image_path, rows, cols, output_dir)
