@@ -11,6 +11,8 @@
     <div class="container">
         <h1>Jigsaw Puzzle</h1>
         <div class="puzzle-area">
+            <div class="pieces-container" id="left-pieces">
+                <!-- Puzzle pieces will be added dynamically here -->
             <div class="pieces-container">
                 <img src="images/puzzle-pieces/piece_0_0.png" id="piece_0_0" draggable="true">
                 <img src="images/puzzle-pieces/piece_0_1.png" id="piece_0_1" draggable="true">
@@ -25,6 +27,7 @@
             </div>
 
             <div class="puzzle-box">
+                <img src="images/original/jigsaw-img-1.jpeg" alt="Jigsaw Puzzle Image">
                 <img src="images/original/newimg.png" alt="Jigsaw Puzzle Image">
                 <div class="grid-line">
                     <!-- Vertical Lines -->
@@ -40,10 +43,12 @@
                 </div>
             </div>
 
-            <div class="pieces-container">
-                <!-- Puzzle pieces -->
+            <div class="pieces-container" id="right-pieces">
+                <!-- Puzzle pieces will be added dynamically here -->
             </div>
         </div>
-    </div>
+  </div>
+
+    <script src={Phoenix.VerifiedRoutes.static_path(@conn, "/js/app.js")}></script>
 </body>
 </html>

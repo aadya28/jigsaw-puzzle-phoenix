@@ -15,6 +15,12 @@ defmodule JigsawWeb.Endpoint do
     websocket: [connect_info: [session: @session_options]],
     longpoll: [connect_info: [session: @session_options]]
 
+
+    socket "/socket", JigsawWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -24,6 +30,12 @@ defmodule JigsawWeb.Endpoint do
     from: :jigsaw,
     gzip: false,
     only: JigsawWeb.static_paths()
+
+    plug Plug.Static,
+    at: "/images",
+    from: :jigsaw,
+    gzip: false,
+    only: ~w(images)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

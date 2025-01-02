@@ -18,6 +18,7 @@ defmodule JigsawWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/api/pieces", PageController, :get_pieces
   end
 
   # Other scopes may use custom stacks.
