@@ -21,8 +21,9 @@ defmodule JigsawWeb.JigsawChannel do
     # Broadcast the piece drop event to all clients
     broadcast!(socket, "piece_dropped", %{
       pieceId: piece_id,
-      cellIndex: cell_index
+      cellIndex: cell_index,
     })
+
     {:noreply, socket}
   end
 
@@ -36,6 +37,20 @@ defmodule JigsawWeb.JigsawChannel do
     # Broadcast the event to all connected clients
     broadcast!(socket, "piece_locked", %{
       piece_id: piece_id
+    })
+    {:noreply, socket}
+  end
+
+  def handle_in("puzzle_solved", _payload, socket) do
+    broadcast!(socket, "puzzle_solved", %{
+      message: "Puzzle is solved!"
+    })
+    {:noreply, socket}
+  end
+
+  def handle_in("puzzle_failed", _payload, socket) do
+    broadcast!(socket, "puzzle_failed", %{
+      message: "Puzzle is failed!"
     })
     {:noreply, socket}
   end
