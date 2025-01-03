@@ -47,6 +47,43 @@ function checkPuzzleCorrectness() {
   return correct;
 }
 
+function createSuccessModal() {
+  // Create a container for the modal
+  const modal = document.createElement('div');
+  modal.classList.add('success-modal');
+
+  // Create the message
+  const message = document.createElement('p');
+  message.innerText = 'You solved this, now go solve world peace!';
+  
+  // Create the OK button
+  const okButton = document.createElement('button');
+  okButton.innerText = 'OK';
+  okButton.classList.add('ok-button');
+  
+  // Create the Go to Medium button
+  const mediumButton = document.createElement('button');
+  mediumButton.innerText = 'Go to Medium';
+  mediumButton.classList.add('redirect-button');
+  mediumButton.addEventListener('click', () => {
+    window.location.href = 'http://127.0.0.1:4000/medium';  // Replace this URL with the one you want
+  });
+
+  // Append elements to modal
+  modal.appendChild(message);
+  modal.appendChild(okButton);
+  modal.appendChild(mediumButton);
+
+  // Append the modal to the body
+  document.body.appendChild(modal);
+
+  // Handle OK button click (close the modal)
+  okButton.addEventListener('click', () => {
+    document.body.removeChild(modal); // Remove modal
+  });
+}
+
+
 // Function to check if the grid is full
 function isGridFull() {
   const cells = document.querySelectorAll(".grid-cell");
@@ -110,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             const isCorrect = checkPuzzleCorrectness();
             if (isCorrect) {
-              alert("You solved this, now go solve world peace!");
+              createSuccessModal();
             } else {
               alert("Don't stress, some puzzles just require brains, not vibes :)");
             }

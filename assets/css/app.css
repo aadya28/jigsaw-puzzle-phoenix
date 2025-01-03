@@ -16,15 +16,16 @@ body {
 }
 
 .solved-image {
-    width: 10%; /* Adjust the size as needed */
+    width: 100%; /* Adjust the size as needed */
     height: auto; /* Maintain the aspect ratio */
     opacity: 1; /* Fully visible */
-    position: fixed; /* Fixed position to stay in the top-right corner */
-    top: 15px; /* Adjust the distance from the top */
-    right: 15px; /* Adjust the distance from the right */
-    z-index: 1000; /* Ensure it appears above other elements */
+    position: absolute; /* Fixed position to stay in the top-right corner */
+    top:0; /* Adjust the distance from the top */
+    right: 0; /* Adjust the distance from the right */
+    z-index: 0.5; /* Ensure it appears above other elements */
     border: 1px solid #000; /* Optional: Add a border */
-    animation: fadeOut 10s forwards;
+    animation: fadeOut 3s forwards;
+    object-fit: contain;
 }
 
 @keyframes fadeOut {
@@ -66,14 +67,6 @@ h1 {
     align-items: center;
     border: 1px solid black;
     position: relative;
-}
-
-.puzzle-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    position: absolute;
 }
 
 .grid-line {
@@ -149,3 +142,35 @@ h1 {
     opacity: 1;
     position: absolute; /* Absolute positioning inside the grid cell */
 }
+
+.success-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+  }
+
+  .success-modal button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .ok-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .redirect-button {
+    background-color: #008CBA;
+    color: white;
+  }
