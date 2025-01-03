@@ -13,6 +13,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f4f4f9;
+    overflow: hidden;
 }
 
 .solved-image {
@@ -48,7 +49,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 100%;
 }
 
 .puzzle-area {
