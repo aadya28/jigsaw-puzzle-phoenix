@@ -21,6 +21,14 @@ channel.on("piece_dropped", payload => {
   }
 });
 
+channel.on("puzzle_solved", (payload) => {
+  createSuccessModal();
+});
+
+channel.on("puzzle_failed", (payload) => {
+  alert("Don't stress, some puzzles just require brains, not vibes :)");
+});
+
 // Join the channel
 channel.join()
   .receive("ok", resp => { 
@@ -155,9 +163,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isGridFull()) {
           setTimeout(() => {
             const isCorrect = checkPuzzleCorrectness();
+
             if (isCorrect) {
               createSuccessModal();
+              channel.push("puzzle_solved");
             } else {
+              channel.push("puzzle_failed");
               alert("Don't stress, some puzzles just require brains, not vibes :)");
             }
           }, 1000);
