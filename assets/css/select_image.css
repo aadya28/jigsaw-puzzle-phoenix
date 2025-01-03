@@ -1,0 +1,84 @@
+
+.image-selection-grid {
+    display: flex; /* Aligns the images in a single row */
+    justify-content: space-around; /* Spreads out the images evenly */
+    gap: 10px; /* Adds space between images */
+    height: auto;
+    width: auto;
+}
+
+.image-select-item {
+    cursor: pointer; /* Makes the image look clickable */
+    border: 2px solid transparent; /* Adds an invisible border for visual feedback */
+    transition: border-color 0.3s; /* Adds a smooth transition for border color change */
+    width: 200px; /* Set a fixed width for the container */
+    height: 200px; /* Set a fixed height for the container */
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center; /* Centers the image vertically */
+}
+
+.image-select-item:hover {
+    border-color: #007bff; /* Changes the border color when hovered */
+}
+
+.image-select-item img {
+    width: 100%; /* Makes the image fill the container's width */
+    height: 100%; /* Makes the image fill the container's height */
+    object-fit: cover; /* Ensures the image covers the entire container without distortion */
+}
+
+.level-selection {
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.level-item {
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.level-item:hover {
+    opacity: 0.6;
+    border: 2px solid #007bff;
+}
+
+.level-item[data-level="easy"] {
+    background-color: green;
+    color: white;
+}
+
+.level-item[data-level="easy"]:hover {
+    border: 2px solid green;
+}
+
+.level-item[data-level="medium"] {
+    background-color: yellow;
+    color: black;
+}
+
+.level-item[data-level="medium"]:hover {
+    border: 2px solid yellow;
+}
+
+.level-item[data-level="hard"] {
+    background-color: red;
+    color: white;
+}
+
+.level-item[data-level="hard"]:hover {
+    border: 2px solid red;
+}
+
+/* Optional: Highlight the selected level */
+.level-item.selected {
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

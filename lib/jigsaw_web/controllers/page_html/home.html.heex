@@ -4,33 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jigsaw Puzzle</title>
+    <title>Select Puzzle</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>Jigsaw Puzzle</h1>
+        <h1>Select Your Puzzle</h1>
+        <div class="image-selection-grid" id="image-selection-grid">
+            <!-- Dynamically generated image selection items will go here -->
+        </div>
 
-        <!--<img id = "solved-image" src="images/original/newimg.png" class="solved-image" alt="Solved Puzzle">-->
-        <div class="puzzle-area">
-            <div class="pieces-container" id="left-pieces"></div>
-
-            <div class="puzzle-box">
-                <div class="grid-line"></div>
-
-                <img id = "solved-image" src="images/original/newimg.png" class="solved-image" alt="Solved Puzzle">
-
-            </div>
-
-            <div class="pieces-container" id="right-pieces"></div>
-            <script src="js/app.js"></script>
+        <h1 style="display: none;">Choose Level</h1>
+        <div class="level-selection" id="level-selection" style="display: none;">
+            <div class="level-item" data-level="easy">Easy</div>
+            <div class="level-item" data-level="medium">Medium</div>
+            <div class="level-item" data-level="hard">Hard</div>
         </div>
     </div>
 
+    <script src="js/app.js"></script>
     <script>
         // Pass the static path for puzzle pieces to the JavaScript
-        window.puzzlePiecesBasePath = "/images/puzzle-pieces/img-1-pieces/";
-        window.puzzlePiecesData = <%= raw(Jason.encode!(@puzzle_pieces)) %>;
+        window.originalImagesBasePath = "/images/original/";
+        window.originalImagesData = <%= raw(Jason.encode!(@original_images)) %>;
     </script>
 </body>
 

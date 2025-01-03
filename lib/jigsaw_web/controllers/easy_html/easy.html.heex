@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jigsaw Puzzle</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Jigsaw Puzzle</h1>
+
+        <div class="puzzle-area">
+            <div class="pieces-container" id="left-pieces"></div>
+
+            <div class="puzzle-box">
+                <img src={@image_path} alt="Jigsaw Puzzle Image">
+                <div class="grid-line"></div>
+
+                <img id = "solved-image" src="images/original/newimg.png" class="solved-image" alt="Solved Puzzle">
+
+            </div>
+
+            <div class="pieces-container" id="right-pieces"></div>
+            <script src="js/app.js"></script>
+        </div>
+    </div>
+
+    <script>
+        // Pass the static path for puzzle pieces to the JavaScript
+        window.puzzlePiecesBasePath = "/images/puzzle-pieces/img-1-pieces/";
+        window.puzzlePiecesData = <%= raw(Jason.encode!(@puzzle_pieces)) %>;
+    </script>
+</body>
+
+</html>
