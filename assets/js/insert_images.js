@@ -22,21 +22,23 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   
       // Function to generate grid cells
-      function generateGrid() {
+      function generateGrid(rows, columns) {
         const gridContainer = document.querySelector('.grid-line');
-        for (let i = 0; i < 3; i++) {
-          for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < columns; j++) {
             const cell = document.createElement('div');
             cell.className = 'grid-cell';
             cell.dataset.index = `${i}_${j}`;
             gridContainer.appendChild(cell);
           }
         }
+
+        console.log(gridContainer)
       }
   
       // Initialize puzzle once the page is loaded
       generatePuzzlePieces();
-      generateGrid();
+      generateGrid(5, 5);
     } else {
       console.error("puzzlePiecesData or puzzlePiecesBasePath is undefined");
     }

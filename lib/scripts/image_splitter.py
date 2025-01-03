@@ -3,8 +3,14 @@ import numpy as np
 import os
 from random import randint
 
-def create_jigsaw_pieces(image_path, rows, cols, output_dir):
+def create_jigsaw_pieces(image_path, output_dir, level):
     # Load the image
+    if level == "easy": 
+        rows, cols = 3, 3
+    elif level == "medium":
+        rows, cols = 5, 5
+    else:
+        rows, cols = 10, 10
     image = cv2.imread(image_path)
     height, width, _ = image.shape
 
@@ -27,20 +33,15 @@ def create_jigsaw_pieces(image_path, rows, cols, output_dir):
             # Extract the piece
             piece = image[y1:y2, x1:x2]
 
-            # Optionally, add irregular edges (simulate jigsaw shapes)
-            # mask = np.ones_like(piece, dtype=np.uint8) * 255  # Start with a white mask
-            
-            # # Apply the mask
-            # piece = cv2.bitwise_and(piece, mask)
-
-            # Save the piece
-            piece_path = os.path.join(output_dir, f"piece_{i}_{j}.png")
+            piece_path = os.path.join(output_dir, level, f"piece_{i}_{j}.png")
             cv2.imwrite(piece_path, piece)
 
     print(f"Jigsaw pieces saved in '{output_dir}'")
 
 # Usage
 image_path = "priv/static/images/original/newimg.png"  # Replace with your image path
-output_dir = "priv/static/images/puzzle-pieces/img-1-pieces"
-rows, cols = 3, 3  # Number of rows and columns
-create_jigsaw_pieces(image_path, rows, cols, output_dir)
+output_dir = "priv/static/images/puzzle-pieces/"
+rows, cols = 5, 5  # Number of rows and columns
+create_jigsaw_pieces(image_path, output_dir, "easy")
+create_jigsaw_pieces(image_path, output_dir, "medium")
+create_jigsaw_pieces(image_path, output_dir, "hard")

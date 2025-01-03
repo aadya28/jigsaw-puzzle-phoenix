@@ -19,6 +19,7 @@ defmodule JigsawWeb.Router do
 
     get "/", PageController, :home
     get "/medium", MediumController, :index
+    get "/hard", HardController, :main
   end
 
   # Other scopes may use custom stacks.

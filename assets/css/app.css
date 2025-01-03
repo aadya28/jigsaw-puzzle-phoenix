@@ -70,7 +70,7 @@ h1 {
     position: relative;
 }
 
-.grid-line {
+.grid-line.easy {
     position: relative;
     top: 0;
     left: 0;
@@ -79,6 +79,30 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    z-index: 2;
+}
+
+.grid-line.medium {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    z-index: 2;
+}
+
+.grid-line.hard {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
     z-index: 2;
 }
 
@@ -122,6 +146,7 @@ h1 {
     max-height: 100%; /* Ensure pieces do not overflow vertically */
     object-fit: contain; /* Ensure image fits within the dimensions */
 }
+
 
 .pieces-container img {
     width: 100px;
