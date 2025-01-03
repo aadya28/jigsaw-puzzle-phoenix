@@ -37,15 +37,28 @@ function checkPuzzleCorrectness() {
 
   cells.forEach(cell => {
     const piece = cell.querySelector(".puzzle_piece");
-    const cellIndex = cell.getAttribute("data-index");
+    const cellIndex = cell.getAttribute("data-index"); // e.g., "2_2"
 
-    if (!piece || piece.id.replace("piece_", "") !== cellIndex) {
+    // Log the original data for debugging
+    console.log(piece, cellIndex);
+
+    if (!piece) {
+      console.log("No piece in cell", cellIndex);
       correct = false;
+    } else {
+      // Extract only the numeric portion from piece.id (e.g., "2_2" from "piece_2_2-368e468c26ff8cc776f727dbd057b970")
+      const pieceIndex = piece.id.match(/\d+_\d+/)?.[0]; // Extract "2_2"
+
+      // Compare the extracted values
+      if (pieceIndex !== cellIndex) {
+        console.log(`Mismatch: pieceIndex (${pieceIndex}) != cellIndex (${cellIndex})`);
+        correct = false;
+      }
     }
   });
 
   return correct;
-}
+}  
 
 // Function to check if the grid is full
 function isGridFull() {
@@ -53,28 +66,29 @@ function isGridFull() {
   return Array.from(cells).every(cell => cell.querySelector(".puzzle_piece"));
 }
 
-// Handle drag and drop logic
 document.addEventListener("DOMContentLoaded", () => {
   const pieces = document.querySelectorAll(".puzzle_piece");
   const gridCells = document.querySelectorAll(".grid-cell");
+  const containers = document.querySelectorAll(".pieces-container"); // Left and right containers
 
   let draggedPiece = null;
 
+  // Handle drag start and end for pieces
   pieces.forEach(piece => {
     piece.addEventListener("dragstart", (e) => {
       draggedPiece = e.target;
       e.dataTransfer.setData("pieceId", e.target.id);
-      e.target.style.opacity = "0.5"; // Make the image slightly transparent during dragging
+      e.target.style.opacity = "0.5";
       setTimeout(() => {
-        draggedPiece.style.visibility = "hidden"; // Hide piece during drag
+        draggedPiece.style.visibility = "hidden";
       }, 0);
     });
 
     piece.addEventListener("dragend", (e) => {
-      e.target.style.opacity = "1"; // Reset opacity when dragging ends
+      e.target.style.opacity = "1";
       setTimeout(() => {
-        draggedPiece.style.visibility = "visible"; // Make piece visible again
-        draggedPiece = null; // Reset dragged piece
+        draggedPiece.style.visibility = "visible";
+        draggedPiece = null;
       }, 0);
     });
   });
@@ -82,30 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle drag over for grid cells
   gridCells.forEach(cell => {
     cell.addEventListener("dragover", (e) => {
-      e.preventDefault(); // Allow drop
-      cell.style.border = "2px solid #000"; // Change border style when hovering
+      e.preventDefault();
+      cell.style.border = "2px solid #000";
     });
 
-    // Handle drag leave
     cell.addEventListener("dragleave", () => {
-      cell.style.border = "none"; // Reset border style when leaving
+      cell.style.border = "none";
     });
 
-    // Handle drop
     cell.addEventListener("drop", (e) => {
       e.preventDefault();
       const pieceId = e.dataTransfer.getData("pieceId");
       const piece = document.getElementById(pieceId);
-      const cellIndex = cell.getAttribute("data-index");
 
       if (piece && !cell.querySelector(".puzzle_piece")) {
-        // Place the piece inside the grid cell
         cell.appendChild(piece);
-        piece.setAttribute("draggable", "true"); // Allow re-dragging
+        piece.setAttribute("draggable", "true");
         piece.style.opacity = "1";
         cell.style.border = "none";
 
-        // Check if the grid is full
         if (isGridFull()) {
           setTimeout(() => {
             const isCorrect = checkPuzzleCorrectness();
@@ -114,11 +123,38 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
               alert("Don't stress, some puzzles just require brains, not vibes :)");
             }
-          }, 1000); // 1-second delay
+          }, 1000);
         }
 
-        // Send the piece drop event over the channel
-        channel.push("piece_dropped", { pieceId, cellIndex });
+        channel.push("piece_dropped", { pieceId, cellIndex: cell.getAttribute("data-index") });
+      }
+    });
+  });
+
+  // Handle drag over and drop for containers
+  containers.forEach(container => {
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault(); // Allow drop
+      container.style.border = "2px dashed #ccc"; // Visual feedback
+    });
+
+    container.addEventListener("dragleave", () => {
+      container.style.border = "none"; // Reset border
+    });
+
+    container.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const pieceId = e.dataTransfer.getData("pieceId");
+      const piece = document.getElementById(pieceId);
+
+      if (piece) {
+        container.appendChild(piece); // Move piece back to the container
+        piece.setAttribute("draggable", "true");
+        piece.style.opacity = "1";
+        container.style.border = "none";
+
+        // Notify the server about the change
+        channel.push("piece_dropped", { pieceId, cellIndex: null }); // `cellIndex: null` indicates it’s back in the container
       }
     });
   });

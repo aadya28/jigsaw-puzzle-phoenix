@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
           document.getElementById(containerId).appendChild(img);
           counter++;
         });
-
-       
       }
   
       // Function to generate grid cells
