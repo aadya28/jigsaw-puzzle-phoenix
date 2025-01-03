@@ -82,18 +82,18 @@ function createSuccessModal() {
   okButton.innerText = 'OK';
   okButton.classList.add('ok-button');
   
-  // Create the Go to Medium button
-  const mediumButton = document.createElement('button');
-  mediumButton.innerText = 'Go to Medium';
-  mediumButton.classList.add('redirect-button');
-  mediumButton.addEventListener('click', () => {
-    window.location.href = 'http://127.0.0.1:4000/medium';  // Replace this URL with the one you want
+  // Create the Next Puzzle button
+  const nextPuzzleButton = document.createElement('button');
+  nextPuzzleButton.innerText = 'Next Puzzle';
+  nextPuzzleButton.classList.add('redirect-button');
+  nextPuzzleButton.addEventListener('click', () => {
+    window.location.href = 'http://127.0.0.1:4000/';  // Replace this URL with the one you want
   });
 
   // Append elements to modal
   modal.appendChild(message);
   modal.appendChild(okButton);
-  modal.appendChild(mediumButton);
+  modal.appendChild(nextPuzzleButton);
 
   // Append the modal to the body
   document.body.appendChild(modal);

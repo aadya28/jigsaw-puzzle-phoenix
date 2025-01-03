@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (typeof window.puzzlePiecesData !== 'undefined' && typeof window.puzzlePiecesBasePath !== 'undefined') {
       const puzzlePieces = window.puzzlePiecesData;
       const basePath = window.puzzlePiecesBasePath;
+      console.log("hellp")
+      const level = window.level;
+      console.log(level);
       console.log(puzzlePieces);  
   
       // Function to generate puzzle pieces
@@ -123,7 +126,17 @@ document.addEventListener("DOMContentLoaded", function() {
   
       // Initialize puzzle once the page is loaded
       generatePuzzlePieces();
-      generateGrid(5, 5);
+      if(level === "easy"){
+        generateGrid(3, 3);
+      }
+      else if(level === "medium"){
+        generateGrid(5, 5);
+      }
+      else if(level === "hard"){
+        generateGrid(10, 10);
+      } else {
+        console.log("level not found");
+      }
     } else {
       console.error("puzzlePiecesData or puzzlePiecesBasePath is undefined");
     }
