@@ -21,6 +21,7 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import "./insert_images.js"
 import "./drag_and_drop.js"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
@@ -42,34 +43,3 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-
-// For automation, not in  use currently
-// document.addEventListener("DOMContentLoaded", () => {
-//   const leftContainer = document.getElementById("left-pieces");
-//   const rightContainer = document.getElementById("right-pieces");
-
-//   // Fetch the puzzle pieces from the server
-//   fetch("/api/pieces")
-//     .then(response => response.json())
-//     .then(pieces => {
-//       // Shuffle pieces randomly
-//       const shuffledPieces = pieces.sort(() => Math.random() - 0.5);
-
-//       // Distribute pieces into left and right containers
-//       shuffledPieces.forEach((piece, index) => {
-//         const img = document.createElement("img");
-//         img.src = "/images/puzzle-pieces/img-1-pieces/" + piece;
-//         img.alt = `Puzzle Piece ${index + 1}`;
-//         img.classList.add("puzzle-piece");
-
-//         if (index % 2 === 0) {
-//           leftContainer.appendChild(img);
-//         } else {
-//           rightContainer.appendChild(img);
-//         }
-//       });
-//     })
-//     .catch(error => {
-//       console.error("Error fetching puzzle pieces:", error);
-//     });
-// });
