@@ -25,10 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       
                       // Store the selected image data
                       window.selectedImage = filename;
-
-                      // Log the selected image
-                      console.log("Selected Image: " + window.selectedImage);
-
+                      
                       // Hide the image selection grid
                       gridContainer.style.display = 'none';
                       
@@ -72,13 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
           // Store the selected level data
           window.selectedLevel = selectedLevel;
 
-          // Log the selected level
-          console.log("Selected Level: " + window.selectedLevel);
-
           // Trigger the URL based on the selected level
-          const targetUrl = `/${selectedLevel}?imagePath=${encodeURIComponent(window.selectedImage)}`;
+          const targetUrl = `/${selectedLevel}?imagePath=${encodeURIComponent(window.selectedImage)}&level=${encodeURIComponent(selectedLevel)}`;
           console.log("Redirecting to: " + targetUrl);
-
           // Redirect to the target URL
           window.location.href = targetUrl;
       });
@@ -87,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (typeof window.puzzlePiecesData !== 'undefined' && typeof window.puzzlePiecesBasePath !== 'undefined') {
       const puzzlePieces = window.puzzlePiecesData;
       const basePath = window.puzzlePiecesBasePath;
-      console.log("hellp")
       const level = window.level;
       console.log(level);
       console.log(puzzlePieces);  

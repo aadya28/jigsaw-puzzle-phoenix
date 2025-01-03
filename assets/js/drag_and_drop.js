@@ -84,11 +84,58 @@ function createSuccessModal() {
   
   // Create the Next Puzzle button
   const nextPuzzleButton = document.createElement('button');
-  nextPuzzleButton.innerText = 'Next Puzzle';
-  nextPuzzleButton.classList.add('redirect-button');
-  nextPuzzleButton.addEventListener('click', () => {
-    window.location.href = 'http://127.0.0.1:4000/';  // Replace this URL with the one you want
-  });
+  const levels = ["easy", "medium", "hard"];
+
+  // Parse the query parameters from the current URL
+  const queryParams = new URLSearchParams(window.location.search);
+  console.log(window.location.href);
+  console.log(queryParams);
+
+  // Get the selected image and level from the query parameters
+  const selectedImage = queryParams.get('imagePath');
+  const selectedLevel = queryParams.get('level');
+
+  // Log the values for debugging
+  console.log("Selected Image:", selectedImage);
+  console.log("Selected Level:", selectedLevel);
+
+  // Initialize nextLevel in outer scope
+  let nextLevel = null;
+
+  // Find the index of the selected level and set the next level
+  let idx = -1;
+  for (let i = 0; i < levels.length; i++) {
+    if (levels[i] === selectedLevel) {
+      idx = i;
+      break; // Exit loop once match is found
+    }
+  }
+
+  if (idx !== -1 && idx < levels.length - 1) {
+    nextLevel = levels[idx + 1]; 
+    console.log("Next Level:", nextLevel);
+  } else if (idx === levels.length - 1) {
+    console.log("No next level. Looping back to the first level.");
+    const targetUrl = `http://127.0.0.1:4000/`;
+    window.location.href = targetUrl;
+  } else {
+    console.error("Selected level not found in levels array.");
+  }
+
+  // Ensure nextLevel is valid before adding the event listener
+  if (nextLevel) {
+    nextPuzzleButton.innerText = 'Next Puzzle';
+    nextPuzzleButton.classList.add('redirect-button');
+    nextPuzzleButton.addEventListener('click', () => {
+      const targetUrl = `http://127.0.0.1:4000/${nextLevel}?imagePath=${encodeURIComponent(selectedImage)}&level=${encodeURIComponent(nextLevel)}`;
+      console.log("Redirecting to: " + targetUrl);
+      window.location.href = targetUrl;
+    });
+
+    document.body.appendChild(nextPuzzleButton); // Append the button to the DOM
+  } else {
+    console.error("Next level could not be determined. Button not added.");
+  }
 
   // Append elements to modal
   modal.appendChild(message);
@@ -102,8 +149,7 @@ function createSuccessModal() {
   okButton.addEventListener('click', () => {
     document.body.removeChild(modal); // Remove modal
   });
-}
-
+};
 
 // Function to check if the grid is full
 function isGridFull() {
