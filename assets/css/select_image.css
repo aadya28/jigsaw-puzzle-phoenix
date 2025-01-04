@@ -3,8 +3,8 @@
     display: flex; /* Aligns the images in a single row */
     justify-content: space-around; /* Spreads out the images evenly */
     gap: 10px; /* Adds space between images */
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
 }
 
 .image-select-item {
@@ -19,7 +19,7 @@
 }
 
 .image-select-item:hover {
-    border-color: #007bff; /* Changes the border color when hovered */
+    border-color: white; /* Changes the border color when hovered */
 }
 
 .image-select-item img {

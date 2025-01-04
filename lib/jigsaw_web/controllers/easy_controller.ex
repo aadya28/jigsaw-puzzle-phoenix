@@ -25,6 +25,6 @@ defmodule JigsawWeb.EasyController do
     IO.inspect(puzzle_pieces_path, label: "Puzzle Pieces Path")
     IO.inspect(shuffled_files, label: "Shuffled Puzzle Pieces")
 
-    render(conn, "easy.html", image_path: relative_image_path, puzzle_pieces: shuffled_files, level: level)
+    render(conn, "easy.html", layout: false, image_path: relative_image_path, puzzle_pieces: shuffled_files, level: level)
   end
 end

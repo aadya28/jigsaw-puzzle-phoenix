@@ -39,7 +39,7 @@ def create_jigsaw_pieces(image_path, output_dir, level):
     print(f"Jigsaw pieces saved in '{output_dir}'")
 
 # Usage
-image_path = "priv/static/images/original/-c55c6fdbb4c100a54d30d4177c9e858e.png"  # Replace with your image path
+image_path = "priv/static/images/original/img-1.png"  # Replace with your image path
 output_dir = "priv/static/images/puzzle-pieces/"
 create_jigsaw_pieces(image_path, output_dir, "easy")
 create_jigsaw_pieces(image_path, output_dir, "medium")
