@@ -25,9 +25,8 @@
 
     <script src="js/app.js"></script>
     <script>
-        // Pass the static path for puzzle pieces to the JavaScript
-        window.originalImagesBasePath = "/images/original/";
-        window.originalImagesData = <%= raw(Jason.encode!(@original_images)) %>;
+        window.originalImagesBasePath =  <%= raw(Jason.encode!(@base_path)) %>;
+        window.originalImagesData = <%= raw(Jason.encode!(@images)) %>;
     </script>
 </body>
 

@@ -7,18 +7,17 @@
     <title>Jigsaw Puzzle</title>
 </head>
 
-<body style="background-image: url('/images/backgrounds/easy-bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; margin: 0; padding: 0;">
-
-    <div class="container">
+<body>
+    <div class="container" id="game-container">
         <h1>Jigsaw Puzzle</h1>
 
         <div class="puzzle-area">
             <div class="pieces-container" id="left-pieces"></div>
 
             <div class="puzzle-box">
-                <div class="grid-line easy"></div>
+                <div class={"grid-line #{@level}"}></div>
 
-                <img id = "solved-image" src={@image_path} class="solved-image" alt="Solved Puzzle">
+                <img id = "solved-image" src={"/#{@original_image_path}"} class="solved-image" alt="Solved Puzzle">
             </div>
 
             <div class="pieces-container" id="right-pieces"></div>
@@ -28,7 +27,7 @@
 
     <script>
         // Pass the static path for puzzle pieces to the JavaScript
-        window.puzzlePiecesBasePath = "/images/puzzle-pieces/easy/";
+        window.puzzlePiecesPath = <%= raw(Jason.encode!(@puzzle_pieces_path)) %>;
         window.puzzlePiecesData = <%= raw(Jason.encode!(@puzzle_pieces)) %>;
         window.level = <%= raw(Jason.encode!(@level)) %>;
     </script>

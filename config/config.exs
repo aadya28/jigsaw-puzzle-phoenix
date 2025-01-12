@@ -8,7 +8,7 @@
 import Config
 
 config :jigsaw,
-  ecto_repos: [Jigsaw.Repo],
+  # ecto_repos: [Jigsaw.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
