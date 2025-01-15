@@ -17,10 +17,8 @@ defmodule JigsawWeb.Router do
   scope "/", JigsawWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    get "/easy", EasyController, :easy
-    get "/medium", MediumController, :medium
-    get "/hard", HardController, :hard
+    get "/jigsaw", JigsawController, :index
+    get "/jigsaw/:image_id/:level", PuzzleController, :puzzle
   end
 
   # Other scopes may use custom stacks.

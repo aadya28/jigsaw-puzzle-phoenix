@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
       // Function to generate image selection items dynamically
       function generateImageSelection() {
           const gridContainer = document.getElementById("image-selection-grid");
+
           if (gridContainer) {
               originalImages.forEach(image => {
                   const imageSelectItem = document.createElement("div");
                   imageSelectItem.classList.add("image-select-item");
-                  imageSelectItem.dataset.image = basePath + image;
+                  imageSelectItem.dataset.image = image;
 
                   const img = document.createElement("img");
                   img.src = basePath + image;
@@ -20,16 +21,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
                   // Add click event listener to image select item
                   imageSelectItem.addEventListener("click", function() {
-                      // Extract the base part of the filename (e.g., 'img-1' from 'img-1-c55c6fdbb4c100a54d30d4177c9e858e.png')
-                      const filename = image; 
-                      
-                      // Store the selected image data
-                      window.selectedImage = filename;
-                      
-                      // Hide the image selection grid
+                      // Extract the base part of the filename
+                      console.log(image);
+
+                      const image_name_list = image.split('-'); 
+                      console.log(image_name_list);
+
+                      const selectedImageId = image_name_list[1];
+                      console.log(selectedImageId);
+
+                      window.selectedImageId = selectedImageId;
+                      console.log(window.selectedImageId);
+
+                      // Hide the image selection grid and header
                       gridContainer.style.display = 'none';
-                      
-                      // Hide the "Select Your Puzzle" header
                       document.querySelector('h1').style.display = 'none';
 
                       // Show the level selection and header
@@ -63,74 +68,78 @@ document.addEventListener("DOMContentLoaded", function() {
           // Add 'selected' class to the clicked item
           this.classList.add('selected');
 
-          // Get the selected level (easy, medium, or hard)
+          // Get the selected level
           const selectedLevel = this.dataset.level;
 
           // Store the selected level data
           window.selectedLevel = selectedLevel;
 
-          // Trigger the URL based on the selected level
-          const targetUrl = `/${selectedLevel}?imagePath=${encodeURIComponent(window.selectedImage)}&level=${encodeURIComponent(selectedLevel)}`;
-          console.log("Redirecting to: " + targetUrl);
-          // Redirect to the target URL
+          // Construct the URL in the format /jigsaw/:image_id/:level
+          const imageId = window.selectedImageId;
+          const targetUrl = `/jigsaw/${imageId}/${selectedLevel}`;
+
+          // Redirect to the constructed URL
           window.location.href = targetUrl;
       });
   });
 
-    if (typeof window.puzzlePiecesData !== 'undefined' && typeof window.puzzlePiecesBasePath !== 'undefined') {
-      const puzzlePieces = window.puzzlePiecesData;
-      const basePath = window.puzzlePiecesBasePath;
-      const level = window.level;
-      console.log(level);
-      console.log(puzzlePieces);  
-  
-      // Function to generate puzzle pieces
-      function generatePuzzlePieces() {
-        let counter = 0; //
-        puzzlePieces.forEach(piece => {
-          const img = document.createElement('img');
-          img.src = basePath + piece;
-          img.id = piece.split('.')[0];  // Use the filename (without extension) as the ID
-          img.className = "puzzle_piece";
-          img.draggable = true;
-  
-          // Append to the appropriate container based on piece name (you can modify the condition)
-          const containerId = counter % 2 === 0 ? "left-pieces" : "right-pieces";
-          document.getElementById(containerId).appendChild(img);
-          counter++;
-        });
-      }
-  
-      // Function to generate grid cells
-      function generateGrid(rows, columns) {
-        const gridContainer = document.querySelector('.grid-line');
-        for (let i = 0; i < rows; i++) {
-          for (let j = 0; j < columns; j++) {
-            const cell = document.createElement('div');
-            cell.className = 'grid-cell';
-            cell.dataset.index = `${i}_${j}`;
-            gridContainer.appendChild(cell);
-          }
-        }
+  if (typeof window.puzzlePiecesData !== 'undefined' && typeof window.puzzlePiecesPath !== 'undefined') {
+    const puzzlePieces = window.puzzlePiecesData;
+    const puzzlePiecesPath = window.puzzlePiecesPath;
+    const level = window.level;
 
-        console.log(gridContainer)
-      }
-  
-      // Initialize puzzle once the page is loaded
-      generatePuzzlePieces();
-      if(level === "easy"){
-        generateGrid(3, 3);
-      }
-      else if(level === "medium"){
-        generateGrid(5, 5);
-      }
-      else if(level === "hard"){
-        generateGrid(10, 10);
-      } else {
-        console.log("level not found");
-      }
-    } else {
-      console.error("puzzlePiecesData or puzzlePiecesBasePath is undefined");
+    function setBackground(level) {
+      document.body.style.backgroundImage = `url('/images/backgrounds/${level}-bg.jpg')`;
+      document.body.style.backgroundSize = 'cover';  // Make the background cover the entire body
+      document.body.style.backgroundPosition = 'center';  // Center the background
+      document.body.style.backgroundRepeat = 'no-repeat';  // Ensure the background does not repeat
     }
-  });
   
+    // Function to generate puzzle pieces
+    function generatePuzzlePieces() {
+      let counter = 0; 
+      puzzlePieces.forEach(piece => {
+        const img = document.createElement('img');
+        img.src = '/' + puzzlePiecesPath + '/' + piece;
+        img.id = piece.split('.')[0];  // Use the filename (without extension) as the ID
+        img.className = "puzzle_piece";
+        img.draggable = true;
+
+        // Append to the appropriate container based on piece name (you can modify the condition)
+        const containerId = counter % 2 === 0 ? "left-pieces" : "right-pieces";
+        document.getElementById(containerId).appendChild(img);
+        counter++;
+      });
+    }
+
+    // Function to generate grid cells
+    function generateGrid(rows, columns) {
+      const gridContainer = document.querySelector('.grid-line');
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'grid-cell';
+          cell.dataset.index = `${i}_${j}`;
+          gridContainer.appendChild(cell);
+        }
+      }
+    }
+
+    setBackground(level);
+    // Initialize puzzle once the page is loaded
+    generatePuzzlePieces();
+    if(level === "easy"){
+      generateGrid(3, 3);
+    }
+    else if(level === "medium"){
+      generateGrid(5, 5);
+    }
+    else if(level === "hard"){
+      generateGrid(10, 10);
+    } else {
+      console.log("level not found");
+    }
+  } else {
+    console.error("puzzlePiecesData or puzzlePiecesBasePath is undefined");
+  }
+});

@@ -1,4 +1,4 @@
-defmodule JigsawWeb.PageHTML do
+defmodule JigsawWeb.JigsawHTML do
   @moduledoc """
   This module contains pages rendered by PageController.
 
@@ -6,5 +6,5 @@ defmodule JigsawWeb.PageHTML do
   """
   use JigsawWeb, :html
 
-  embed_templates "page_html/*"
+  embed_templates "jigsaw_html/*"
 end

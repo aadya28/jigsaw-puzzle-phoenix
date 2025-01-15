@@ -2,6 +2,7 @@
 .image-selection-grid {
     display: flex; /* Aligns the images in a single row */
     justify-content: space-around; /* Spreads out the images evenly */
+    /* align-items: center; */
     gap: 10px; /* Adds space between images */
     height: 100%;
     width: 100%;

@@ -9,7 +9,7 @@ defmodule Jigsaw.Application do
   def start(_type, _args) do
     children = [
       JigsawWeb.Telemetry,
-      Jigsaw.Repo,
+      # Jigsaw.Repo,
       {DNSCluster, query: Application.get_env(:jigsaw, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Jigsaw.PubSub},
       # Start the Finch HTTP client for sending emails
