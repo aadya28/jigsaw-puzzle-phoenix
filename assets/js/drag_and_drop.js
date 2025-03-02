@@ -86,14 +86,15 @@ function createSuccessModal() {
   const nextPuzzleButton = document.createElement('button');
   const levels = ["easy", "medium", "hard"];
 
-  // Parse the query parameters from the current URL
-  const queryParams = new URLSearchParams(window.location.search);
+  // Parse the path from the current URL
+  const path = window.location.pathname;
   console.log(window.location.href);
-  console.log(queryParams);
+  console.log(path);
 
-  // Get the selected image and level from the query parameters
-  const selectedImage = queryParams.get('imagePath');
-  const selectedLevel = queryParams.get('level');
+  // Split the path to extract the selected image and level
+  const pathSegments = path.split('/');
+  const selectedImage = decodeURIComponent(pathSegments[2]);
+  const selectedLevel = decodeURIComponent(pathSegments[3]);
 
   // Log the values for debugging
   console.log("Selected Image:", selectedImage);
@@ -106,17 +107,17 @@ function createSuccessModal() {
   let idx = -1;
   for (let i = 0; i < levels.length; i++) {
     if (levels[i] === selectedLevel) {
-      idx = i;
+      idx = i + 1;
       break; // Exit loop once match is found
     }
   }
 
-  if (idx !== -1 && idx < levels.length - 1) {
-    nextLevel = levels[idx + 1]; 
+  if (idx !== -1 && idx < levels.length) {
+    nextLevel = levels[idx];
     console.log("Next Level:", nextLevel);
   } else if (idx === levels.length - 1) {
-    console.log("No next level. Looping back to the first level.");
-    const targetUrl = `http://127.0.0.1:4000/`;
+    console.log("No next level. Looping back to home.");
+    const targetUrl = `http://127.0.0.1:4000/jigsaw`;
     window.location.href = targetUrl;
   } else {
     console.error("Selected level not found in levels array.");
@@ -127,7 +128,7 @@ function createSuccessModal() {
     nextPuzzleButton.innerText = 'Next Puzzle';
     nextPuzzleButton.classList.add('redirect-button');
     nextPuzzleButton.addEventListener('click', () => {
-      const targetUrl = `http://127.0.0.1:4000/${nextLevel}?imagePath=${encodeURIComponent(selectedImage)}&level=${encodeURIComponent(nextLevel)}`;
+      const targetUrl = `http://127.0.0.1:4000/jigsaw/${selectedImage}/${nextLevel}`;
       console.log("Redirecting to: " + targetUrl);
       window.location.href = targetUrl;
     });
