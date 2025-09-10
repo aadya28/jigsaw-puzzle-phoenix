@@ -117,7 +117,7 @@ function createSuccessModal() {
     console.log("Next Level:", nextLevel);
   } else if (idx === levels.length - 1) {
     console.log("No next level. Looping back to home.");
-    const targetUrl = `http://127.0.0.1:4000/jigsaw`;
+    const targetUrl = `${window.location.origin}/jigsaw`;
     window.location.href = targetUrl;
   } else {
     console.error("Selected level not found in levels array.");
@@ -128,7 +128,7 @@ function createSuccessModal() {
     nextPuzzleButton.innerText = 'Next Puzzle';
     nextPuzzleButton.classList.add('redirect-button');
     nextPuzzleButton.addEventListener('click', () => {
-      const targetUrl = `http://127.0.0.1:4000/jigsaw/${selectedImage}/${nextLevel}`;
+      const targetUrl = `${window.location.origin}/jigsaw/${selectedImage}/${nextLevel}`;
       console.log("Redirecting to: " + targetUrl);
       window.location.href = targetUrl;
     });
