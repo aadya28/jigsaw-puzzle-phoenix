@@ -17,6 +17,7 @@ defmodule JigsawWeb.Router do
   scope "/", JigsawWeb do
     pipe_through :browser
 
+    get "/", PageController, :redirect_to_jigsaw
     get "/jigsaw", JigsawController, :index
     get "/jigsaw/:image_id/:level", PuzzleController, :puzzle
   end
