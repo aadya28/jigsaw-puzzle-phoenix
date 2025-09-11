@@ -409,4 +409,3 @@ Click **"Create Web Service"**. Render will:
 - [The 12-Factor App](https://12factor.net/) - This explains the principles behind modern app deployment. It's not Phoenix-specific.
 - [Phoenix Deployment Guide](https://hexdocs.pm/phoenix/deployment.html)
 - [Render Phoenix Documentation](https://render.com/docs/deploy-phoenix)
-- [Phoenix Configuration Guide](https://hexdocs.pm/phoenix/config.html)
