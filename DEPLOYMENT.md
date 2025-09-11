@@ -37,6 +37,10 @@ Think of environments as different "modes" your app runs in:
 
 Testing your app locally in production mode helps catch issues before deployment.
 
+### Step 1: Configure Runtime Settings
+
+Modify `config/runtime.exs` to handle production deployment:
+
 ### 1. Make Database Configuration Optional
 
 This prevents crashes when testing without a database:
@@ -203,7 +207,9 @@ SECRET_KEY_BASE=$(mix phx.gen.secret) PHX_HOST=localhost PHX_SCHEME=http PORT=40
 - Sets production environment variables
 - This full command is used in local production environment to give env variables to runtime.ex but it is not necessary since our code has fallbacks
 
-### Understanding SECRET_KEY_BASE
+<details> 
+<summary><strong>Understanding <code>SECRET_KEY_BASE</code></strong></summary>
+&nbsp;
 
 The secret key is critical for security:
 
@@ -224,6 +230,8 @@ The secret key is critical for security:
 - User impersonation  
 - Session hijacking
 - CSRF attacks
+
+</details>
 
 ### Step 4: Testing Your Local Production Build
 
@@ -256,7 +264,9 @@ Here’s your snippet cleaned up and formatted properly in Markdown:
 ### Step 3: Choose Your Deployment Method
 
 <details>
-<summary>Deploy Without Releases</summary>
+<summary><strong>Deploy Without Releases</strong></summary>
+
+&nbsp;
 
 **Build Command:**
 ```
@@ -271,7 +281,9 @@ mix phx.server
 </details>
 
 <details>
-<summary>Deploy With Releases</summary>
+<summary><strong>Deploy With Releases</strong></summary>
+
+&nbsp;
 
 Prerequisites: Add release configuration to your `mix.exs`
 
@@ -337,26 +349,30 @@ Click **"Create Web Service"**. Render will:
 
 ## Troubleshooting Common Issues
 
-### "DATABASE_URL is missing" Error
+**"DATABASE_URL is missing" Error**
+
 **Cause:** Database configuration is mandatory but no database is configured  
 **Solution:** Make database config optional (see Step 1.1 above)
 
-### "SECRET_KEY_BASE is missing" Error  
+**"SECRET_KEY_BASE is missing" Error**  
 **Cause:** Production requires a secret key for security  
 **Solution:** Set SECRET_KEY_BASE environment variable with generated key
 
-### Assets Not Loading (404 errors)
+**Assets Not Loading (404 errors)**
+
 **Cause:** Assets weren't built or fingerprinted correctly  
 **Solutions:**
 - Run `MIX_ENV=prod mix assets.deploy` again
 - Check that `cache_static_manifest: "priv/static/cache_manifest.json"` is in your endpoint config
 - Verify assets directory exists in `priv/static/`
 
-### "Port Already in Use" Error
+**"Port Already in Use" Error**
+
 **Cause:** Another process is using the specified port  
 **Solution:** Use a different port: `PORT=4002 MIX_ENV=prod mix phx.server`
 
-### JavaScript/CSS Not Working
+**JavaScript/CSS Not Working**
+
 **Cause:** Hardcoded URLs or missing asset compilation  
 **Solutions:**
 - Replace hardcoded URLs with `window.location.origin`
