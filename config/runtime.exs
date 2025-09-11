@@ -62,7 +62,11 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base,
-    cache_static_manifest: "priv/static/cache_manifest.json"
+    cache_static_manifest: "priv/static/cache_manifest.json",
+    check_origin: [
+      "https://#{host}",
+      "//#{host}"
+    ]
 
   # ## SSL Support
   #
