@@ -7,8 +7,15 @@ import Config
 # before starting your production server.
 # Configures Swoosh API Client
 config :jigsaw, JigsawWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: false
+  url: [
+    host: System.get_env("PHX_HOST") || "localhost",
+    port: String.to_integer(System.get_env("PORT") || "4001"),
+    scheme: System.get_env("PHX_SCHEME") || "http"
+  ],
+  check_origin: [
+    "#{System.get_env("PHX_SCHEME") || "http"}://#{System.get_env("PHX_HOST") || "localhost"}:#{System.get_env("PORT") || "4001"}"
+  ],
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Jigsaw.Finch
 
