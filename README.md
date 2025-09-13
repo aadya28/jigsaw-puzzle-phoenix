@@ -1,13 +1,46 @@
-# Jigsaw
+# Getting started
+To run the Jigsaw App locally, follow these steps:
 
-To start your Phoenix server:
+Prerequisites:
+- Elixir and Erlang installed
+- Phoenix installed
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Setup
+1. Clone this repository to your local machine
+
+```
+git clone https://github.com/aadya28/jigsaw-puzzle-phoenix.git
+```
+
+2. Install Elixir dependencies
+
+```
+mix deps.get
+```
+
+3. Setup assets
+
+```
+mix assets.setup
+```
+
+4. Compile dependencies
+
+```
+mix deps.compile
+```
+
+6. Start Phoenix server
+
+```
+mix phx.server
+```
+Or, with IEx:
+```
+iex -S mix phx.server
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more
 
