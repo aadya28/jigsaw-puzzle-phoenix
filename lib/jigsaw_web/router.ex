@@ -19,6 +19,7 @@ defmodule JigsawWeb.Router do
 
     get "/", PageController, :redirect_to_jigsaw
     get "/jigsaw", JigsawController, :index
+    get "/images", ImageController, :index
     get "/jigsaw/:image_id/:level", PuzzleController, :puzzle
   end
 

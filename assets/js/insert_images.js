@@ -1,5 +1,4 @@
 // This js file has code to insert images in easy page, select images and choose level
-
 document.addEventListener("DOMContentLoaded", function() {
   if (typeof window.originalImagesData !== 'undefined' && typeof window.originalImagesBasePath !== 'undefined') {
       const originalImages = window.originalImagesData;
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function() {
                       console.log(selectedImageId);
 
                       window.selectedImageId = selectedImageId;
-                      console.log(window.selectedImageId);
 
                       // Hide the image selection grid and header
                       gridContainer.style.display = 'none';
@@ -125,9 +123,10 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    setBackground(level);
     // Initialize puzzle once the page is loaded
+    setBackground(level);
     generatePuzzlePieces();
+    
     if(level === "easy"){
       generateGrid(3, 3);
     }
