@@ -1,32 +1,29 @@
 defmodule JigsawWeb.PuzzleController do
   use JigsawWeb, :controller
-  alias Jason
+  alias Jigsaw.Images
 
+  @spec puzzle(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def puzzle(conn, %{"image_id" => image_id, "level" => level}) do
-    # Step 1: Read the image_mapping.json file from priv/data
-    image_mapping_path = Path.join(["priv", "data", "image_mapping.json"])
+    # Fetch the dynamic image mapping
+    image_mapping = Images.list_images()
 
-    # Step 2: Decode the JSON file into a map
-    image_mapping =
-      image_mapping_path
-      |> File.read!()
-      |> Jason.decode!()
-
-    # Step 3: Fetch the image filename from the mapping using the image_id
+    # Fetch the image filename from the mapping using the image_id
     case Map.fetch(image_mapping, image_id) do
       {:ok, image_filename} ->
-        # Step 4: Construct the full path to the original image
+        # Construct the full path to the original image
         original_image_path = Path.join(["images", "original", image_filename])
 
-        # Step 5: Handle the puzzle pieces path
-        base_path = Path.join(["priv", "static", "images", "puzzle-pieces"])
+        # Handle the puzzle pieces path
+        # Extract image name without extension for the directory name
+        image_name = Path.basename(image_filename, Path.extname(image_filename))
 
-        base_filename = String.split(image_filename, "-")
-        |> Enum.take(2)
-        |> Enum.join("-")
+        # New path structure: priv/static/images/puzzle-pieces/{level}/{image_name}/
+        puzzle_pieces_path =
+          Path.join(["priv", "static", "images", "puzzle-pieces", level, image_name])
 
-        puzzle_pieces_path = Path.join([base_path, base_filename <> "-pieces", level])
-        puzzle_pieces_relative_path = Path.join(["images", "puzzle-pieces", base_filename <> "-pieces", level])
+        # Relative path for web serving
+        puzzle_pieces_relative_path =
+          Path.join(["images", "puzzle-pieces", level, image_name])
 
         # Check if the directory exists and list files, else return an empty list
         files =
@@ -35,20 +32,21 @@ defmodule JigsawWeb.PuzzleController do
             {:error, _reason} -> []
           end
 
-
         # Filter and shuffle puzzle piece files
         filtered_files =
           files
-          |> Enum.filter(fn file -> String.match?(file, ~r/.*-[a-f0-9]{32}\.\w+$/) end)
+          |> Enum.filter(fn file -> String.match?(file, ~r/^piece_\d+_\d+\.png$/) end)
           |> Enum.shuffle()
 
-        # Step 6: Render the puzzle page
-        render(conn, "puzzle.html", layout: false,
+        # Render the puzzle page
+        render(conn, "puzzle.html",
+          layout: false,
           puzzle_pieces_path: puzzle_pieces_relative_path,
           puzzle_pieces: filtered_files,
-          image_id: image_id, level: level,
+          image_id: image_id,
+          level: level,
           original_image_path: original_image_path
-          )
+        )
 
       :error ->
         # If image_id doesn't exist in the mapping, return a 404
