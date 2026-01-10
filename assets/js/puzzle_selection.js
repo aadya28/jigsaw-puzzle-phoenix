@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Extract the base part of the filename
             console.log(image);
 
-            const image_name_list = image.split('-'); 
+            const image_name_list = image.split('-');
             console.log(image_name_list);
 
             const selectedImageId = image_name_list[1];
@@ -75,10 +75,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Construct the URL in the format /jigsaw/:image_id/:level
       const imageId = window.selectedImageId;
-      const targetUrl = `/jigsaw/${imageId}/${selectedLevel}`;
-
       // Redirect to the constructed URL
-      window.location.href = targetUrl;
+      window.location.href = `/jigsaw/${imageId}/${selectedLevel}`;
     });
   });
 });

@@ -35,7 +35,10 @@ channel.on("puzzle_solved", (payload) => {
 
 // Listen for puzzle validation failure
 channel.on("puzzle_failed", (payload) => {
-  alert("Don't stress, some puzzles just require brains, not vibes :)");
+  // Import createFailureModal dynamically to avoid circular dependencies
+  if (window.createFailureModal) {
+    window.createFailureModal();
+  }
 });
 
 // Join the channel

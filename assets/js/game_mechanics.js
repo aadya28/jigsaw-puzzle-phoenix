@@ -3,7 +3,7 @@
 // Imports: channel from multiplayer_sync.js, validation functions from puzzle_validator.js
 
 import { channel } from "./multiplayer_sync.js";
-import { checkPuzzleCorrectness, isGridFull, createSuccessModal } from "./puzzle_validator.js";
+import { checkPuzzleCorrectness, isGridFull, createSuccessModal, createFailureModal } from "./puzzle_validator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const pieces = document.querySelectorAll(".puzzle_piece");
@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
               createSuccessModal();
               channel.push("puzzle_solved");
             } else {
+              createFailureModal();
               channel.push("puzzle_failed");
-              alert("Don't stress, some puzzles just require brains, not vibes :)");
             }
           }, 1000);
         }

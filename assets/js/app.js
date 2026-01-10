@@ -21,8 +21,8 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-// Image selection page (used on /jigsaw)
-import "./image_selection.js"
+// Image and level selection page (used on /jigsaw)
+import "./puzzle_selection.js"
 // Puzzle game modules (used on /jigsaw/:image_id/:level)
 import "./puzzle_board.js"
 import "./multiplayer_sync.js"

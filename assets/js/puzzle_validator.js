@@ -48,10 +48,15 @@ function createSuccessModal() {
   const message = document.createElement('p');
   message.innerText = 'You solved this, now go solve world peace!';
   
-  // Create the OK button
-  const okButton = document.createElement('button');
-  okButton.innerText = 'OK';
-  okButton.classList.add('ok-button');
+  // Create the Home button
+  const homeButton = document.createElement('button');
+  homeButton.innerText = 'Home';
+  homeButton.classList.add('home-button');
+  
+  // Add click handler to Home button to redirect to home page
+  homeButton.addEventListener('click', () => {
+    window.location.href = `${window.location.origin}/jigsaw`;
+  });
   
   // Create the Next Puzzle button
   const nextPuzzleButton = document.createElement('button');
@@ -87,45 +92,75 @@ function createSuccessModal() {
     nextLevel = levels[idx];
     console.log("Next Level:", nextLevel);
   } else if (idx === levels.length) {
-    // At the end of levels, go back to home
-    console.log("No next level. Looping back to home.");
-    const targetUrl = `${window.location.origin}/jigsaw`;
-    window.location.href = targetUrl;
-    return; // Exit early
+    // At the end of levels (hard level completed), show only Home button
+    console.log("No next level available. At the last level (hard).");
   } else {
     console.error("Selected level not found in levels array.");
   }
 
-  // Ensure nextLevel is valid before adding the event listener
+  // Append message and Home button to modal
+  modal.appendChild(message);
+  modal.appendChild(homeButton);
+
+  // Only add Next Puzzle button if there is a next level
   if (nextLevel) {
     nextPuzzleButton.innerText = 'Next Puzzle';
-    nextPuzzleButton.classList.add('redirect-button');
+    nextPuzzleButton.classList.add('next-puzzle-button');
     nextPuzzleButton.addEventListener('click', () => {
       const targetUrl = `${window.location.origin}/jigsaw/${selectedImage}/${nextLevel}`;
       console.log("Redirecting to: " + targetUrl);
       window.location.href = targetUrl;
     });
 
-    modal.appendChild(nextPuzzleButton); // Append to modal, not body
-  } else {
-    console.error("Next level could not be determined. Button not added.");
+    modal.appendChild(nextPuzzleButton);
   }
-
-  // Append elements to modal
-  modal.appendChild(message);
-  modal.appendChild(okButton);
 
   // Append the modal to the body
   document.body.appendChild(modal);
+}
 
-  // Handle OK button click (close the modal)
-  okButton.addEventListener('click', () => {
-    document.body.removeChild(modal); // Remove modal
+// Create failure modal with retry option
+function createFailureModal() {
+  // Create a container for the modal
+  const modal = document.createElement('div');
+  modal.classList.add('failure-modal');
+
+  // Create the message
+  const message = document.createElement('p');
+  message.innerText = "Don't stress, some puzzles just require brains, not vibes :)";
+
+  // Create the Home button
+  const homeButton = document.createElement('button');
+  homeButton.innerText = 'Home';
+  homeButton.classList.add('home-button');
+
+  // Add click handler to Home button to redirect to home page
+  homeButton.addEventListener('click', () => {
+    window.location.href = `${window.location.origin}/jigsaw`;
   });
+  
+  // Create the Retry button
+  const retryButton = document.createElement('button');
+  retryButton.innerText = 'Retry';
+  retryButton.classList.add('retry-button');
+  
+  // Add click handler to Retry button to reload the current page
+  retryButton.addEventListener('click', () => {
+    window.location.reload();
+  });
+
+  // Append elements to modal
+  modal.appendChild(message);
+  modal.appendChild(homeButton);
+  modal.appendChild(retryButton);
+
+  // Append the modal to the body
+  document.body.appendChild(modal);
 }
 
 // Export functions for use by other modules
-export { checkPuzzleCorrectness, isGridFull, createSuccessModal };
+export { checkPuzzleCorrectness, isGridFull, createSuccessModal, createFailureModal };
 
-// Make createSuccessModal available globally for multiplayer_sync.js
+// Make functions available globally for multiplayer_sync.js
 window.createSuccessModal = createSuccessModal;
+window.createFailureModal = createFailureModal;
