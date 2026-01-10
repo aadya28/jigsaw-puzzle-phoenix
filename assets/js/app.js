@@ -21,8 +21,13 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import "./insert_images.js"
-import "./drag_and_drop.js"
+// Image selection page (used on /jigsaw)
+import "./image_selection.js"
+// Puzzle game modules (used on /jigsaw/:image_id/:level)
+import "./puzzle_board.js"
+import "./multiplayer_sync.js"
+import "./puzzle_validator.js"
+import "./game_mechanics.js"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
