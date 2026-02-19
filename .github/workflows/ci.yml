@@ -6,3 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@v1
+      with:
+        elixir-version: 1.14.4
+        otp-version: '25.3'
+    - name: Install Dependencies
+      run: mix deps.get
+    - name: Compile
+      run: mix compile
+    - name: Run Tests
+      run: mix test
