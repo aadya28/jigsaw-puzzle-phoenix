@@ -6,11 +6,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Elixir
-      uses: erlef/setup-beam@v1
-      with:
-        elixir-version: '1.14'
-        otp-version: '25'
-    - name: Install Dependencies
-      run: mix deps.get
-
